@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 상세 조회</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        #update-form{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="common/header :: headerFragment"></div>
+    <div class="container">
+        <div class="page-header"><h3>회원 상세 조회</h3></div>
+        <table class="table">
+            <tr><td>id</td>
+                <td th:text="${author.id}"></td></tr>
+            <tr><td>name</td>
+                <td th:text="${author.name}"></td></tr>
+            <tr><td>email</td>
+                <td th:text="${author.email}"></td></tr>
+            <tr><td>password</td>
+                <td th:text="${author.password}"></td></tr>
+            <tr><td>role</td>
+                <td th:text="${author.role}"></td></tr>
+            <tr><td>작성글 수</td>
+                <td th:text="${author.count}"></td></tr>
+            <tr><td>가입일시</td>
+                <td th:text="${author.createdTime}"></td></tr>
+        </table>
+        <div>
+            <div class="float-end">
+                <button onclick="showUpdateForm()" class="btn btn-primary">수정</button>
+                <!--                href는 기본적으로 get요청-->
+                <a th:href="@{/author/delete/{id}(id=${author.id})}" class="btn btn-secondary">삭제</a>
+            </div>
+        </div>
+        <br>
+        <div id="update-form" class="mt-4">
+            <form th:action="@{/author/update/{id}(id=${author.id})}" method="post">
+                <div class="form-group" style="padding-top: 20px;">
+                    <label for="name"><input type="text" class="form-control" name="name" id="name" placeholder="이름" th:value="${author.name}">
+                    </label>
+                </div>
+                <div class="form-group" style="padding-top: 20px;">
+                    <label for="password"><input type="password"  class="form-control" name="password" id="password" placeholder="password" th:value="${author.password}"></label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary">수정 완료</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function showUpdateForm(){
+            document.getElementById('update-form').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

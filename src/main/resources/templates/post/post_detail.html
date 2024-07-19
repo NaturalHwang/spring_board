@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 상세 조회</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <style>
+        #update-form{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="common/header :: headerFragment"></div>
+    <div class="container">
+        <div class="page-header"><h3>게시글 상세 조회</h3></div>
+        <table class="table">
+            <tr><td>id</td><td th:text="${post.id}"></td></tr>
+            <tr><td>title</td><td th:text="${post.title}"></td></tr>
+            <tr><td>contents</td><td style="white-space: pre-wrap; word-break: break-all" th:text="${post.contents}"></td></tr>
+            <tr><td>작성자</td><td th:text="${post.author_email}"></td></tr>
+            <tr><td>등록일</td><td th:text="${post.createdTime}"></td></tr>
+            <tr><td>수정일</td><td th:text="${post.updatedTime}"></td></tr>
+        </table>
+        <div>
+            <div class="float-end">
+                <button onclick="showUpdateForm()" class="btn btn-primary">수정</button>
+                <a th:href="@{/post/delete/{id}(id=${post.id})}" class="btn btn-secondary">삭제</a>
+            </div>
+        </div>
+        <br>
+        <div id="update-form" class="mt-4">
+            <form th:action="@{/post/update/{id}(id=${post.id})}" method="post">
+                <div class="form-group">
+                    <label for="title">제목</label>
+                    <input type="text" name="title" id="title" class="from-control" th:value="${post.title}">
+                </div>
+                <div class="form-group">
+                    <label for="contents">내용 입력</label>
+                    <textarea name="contents" id="contents" th:text="${post.contents}" class="form-control"
+                              rows="10" cols="40" maxlength="3000"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary">수정 완료</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function showUpdateForm(){
+            document.getElementById('update-form').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
