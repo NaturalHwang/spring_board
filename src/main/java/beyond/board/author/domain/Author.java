@@ -79,4 +79,8 @@ public class Author extends BaseTimeEntity {
         return authorListResDto;
 //        return new AuthorListResDto(this.id, this.name, this.email);
     }
+
+    public String toString(){
+        return this.name + " " + this.email ;
+    }
 }

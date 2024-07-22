@@ -5,14 +5,13 @@ import beyond.board.post.dto.PostSaveReqDto;
 import beyond.board.post.dto.PostUpdateDto;
 import beyond.board.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
@@ -54,11 +53,23 @@ public class PostController {
 //    public List<PostListResDto> postList(){
 //        return postService.postList();
 //    }
+//    @GetMapping("/post/list")
+//    public String postList(Model model){
+//        List<PostListResDto> postList = postService.postList();
+//        model.addAttribute("postList", postList);
+//        return "/post/post_list";
+//    }
     @GetMapping("/post/list")
-    public String postList(Model model){
-        List<PostListResDto> postList = postService.postList();
-        model.addAttribute("postList", postList);
-        return "/post/post_list";
+    public String postList(Model model, @PageableDefault(size = 8,  sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){
+        model.addAttribute("postList", postService.postList(pageable));
+        return "post/post_list";
+    }
+
+    @GetMapping("/post/list/page")
+    @ResponseBody
+    // Pageable 요청 방법 : localhost:8080/post/list/page?size=10&page=0
+    public Page<PostListResDto> postListPage(@PageableDefault(size = 10,  sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){ // Page 객체 자체가 List로 되어 있어서 굳이 List를 다시 감쌀 필요는 없다
+        return postService.postListPage(pageable);
     }
 
     @GetMapping("/post/delete/{id}")

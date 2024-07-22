@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -30,6 +31,9 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name = "author_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Author author;
+
+    private String appointment;
+    private LocalDateTime appointmentTime;
 
 //    public Post(String title, String contents, Author author){
 //        this.title = title;
@@ -60,6 +64,15 @@ public class Post extends BaseTimeEntity {
     public void updatePost(PostUpdateDto updateDto){
         if(!title.isEmpty()) this.title = updateDto.getTitle();
         if(!contents.isEmpty()) this.contents = updateDto.getContents();
+    }
+
+//    public void updateAppointment(){
+//        this.appointment = "N";
+////        this.appointmentTime = null;
+//    }
+
+    public void updateAppointment(String yn){
+        this.appointment = yn;
     }
 
     public PostListResDto listFromEntity(){

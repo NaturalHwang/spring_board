@@ -41,6 +41,7 @@ public class AuthorService {
                                     .title("가입인사")
                                     .contents("안녕하세요. " + author.getName() + "입니다.")
                                     .author(author)
+                                    .appointment("N")
                                     .build());
         authorRepository.save(author);
     }
