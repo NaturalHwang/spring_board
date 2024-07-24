@@ -4,6 +4,7 @@ import beyond.board.post.dto.PostListResDto;
 import beyond.board.post.dto.PostSaveReqDto;
 import beyond.board.post.dto.PostUpdateDto;
 import beyond.board.post.service.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@Slf4j
 public class PostController {
     private final PostService postService;
 
@@ -45,6 +47,8 @@ public class PostController {
 //    }
     @GetMapping("/post/detail/{id}")
     public String postDetail(@PathVariable Long id, Model model){
+//        log.info("get요청이고, parameter는 " + id);
+//        log.info("method명 : postDetail");
         model.addAttribute("post", postService.postDetail(id));
         return "post/post_detail";
     }
@@ -61,6 +65,7 @@ public class PostController {
 //    }
     @GetMapping("/post/list")
     public String postList(Model model, @PageableDefault(size = 8,  sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){
+
         model.addAttribute("postList", postService.postList(pageable));
         return "post/post_list";
     }

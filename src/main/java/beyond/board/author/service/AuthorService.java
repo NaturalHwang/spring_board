@@ -28,7 +28,8 @@ public class AuthorService {
     }
 
     @Transactional
-    public void authorCreate(AuthorSaveReqDto authorSaveReqDto){
+//    public void authorCreate(AuthorSaveReqDto authorSaveReqDto){ // TDD를 위한 주석 처리
+    public Author authorCreate(AuthorSaveReqDto authorSaveReqDto){
         Author author = authorSaveReqDto.toEntity();
         if(authorSaveReqDto.getPassword().length() < 8){
             throw new IllegalArgumentException("비밀번호는 8자리 이상이어야 합니다.");
@@ -43,7 +44,8 @@ public class AuthorService {
                                     .author(author)
                                     .appointment("N")
                                     .build());
-        authorRepository.save(author);
+//        authorRepository.save(author); // TDD를 위한 주석 처리
+        return authorRepository.save(author);
     }
 
     public AuthorDetailDto authorDetail(Long id){

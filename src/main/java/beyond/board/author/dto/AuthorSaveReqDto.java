@@ -2,22 +2,22 @@ package beyond.board.author.dto;
 
 import beyond.board.author.domain.Author;
 import beyond.board.author.domain.Role;
-import beyond.board.post.domain.Post;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class AuthorSaveReqDto {
     private String name;
     private String email;
     private String password;
 //    사용자가 String 요청해도 Role클래스 자동 형변환
     private Role role;
-    private List<Post> posts;
+//    private List<Post> posts;
 
 //    public Author toEntity(){
 //        Author author = new Author(this.name, this.email, this.password, this.role);

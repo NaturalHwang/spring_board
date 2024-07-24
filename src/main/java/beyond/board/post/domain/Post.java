@@ -62,8 +62,8 @@ public class Post extends BaseTimeEntity {
     }
 
     public void updatePost(PostUpdateDto updateDto){
-        if(!title.isEmpty()) this.title = updateDto.getTitle();
-        if(!contents.isEmpty()) this.contents = updateDto.getContents();
+        if(!updateDto.getTitle().isEmpty()) this.title = updateDto.getTitle();
+        if(!updateDto.getContents().isEmpty()) this.contents = updateDto.getContents();
     }
 
 //    public void updateAppointment(){
